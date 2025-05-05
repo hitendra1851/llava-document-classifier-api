@@ -1,1 +1,20 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><title>Document Classifier</title></head>
+<body>
+<h2>Classify Document</h2>
+<input type="file" id="fileInput"><br><br>
+<button onclick="classify()">Classify</button>
+<pre id="result"></pre>
+<script>
+async function classify() {
+  const file = document.getElementById("fileInput").files[0];
+  const formData = new FormData();
+  formData.append("file", file);
+  const res = await fetch("/classify", { method: "POST", body: formData });
+  const data = await res.json();
+  document.getElementById("result").textContent = JSON.stringify(data, null, 2);
+}
+</script>
+</body>
+</html>
